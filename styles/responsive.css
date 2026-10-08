@@ -114,3 +114,14 @@ body[data-page="home"] #viewport{width:100%;margin-inline:0}
  html.windows-desktop #artboard p{transform:scale(.9);transform-origin:left center}
  html.windows-desktop #artboard .image-slot img{scale:.9}
 }
+/* Four equal phone columns, with shared baselines for the three flow captions. */
+[data-node-id="212:512"]{grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;align-items:start}
+[data-node-id="212:512"]>div{display:flex;flex-direction:column;gap:20px;justify-content:flex-start;align-items:stretch}
+[data-node-id="212:521"]{grid-column:span 2}
+[data-node-id="212:522"]{height:auto;gap:24px;grid-template-columns:repeat(2,minmax(0,1fr))}
+[data-node-id="212:514"],[data-node-id="212:518"],[data-node-id="212:522"] .image-slot{width:100%;height:auto;aspect-ratio:1351/2800;position:relative}
+[data-node-id="212:518"]>.image-slot{position:absolute;inset:0;width:100%;height:100%;aspect-ratio:auto}
+[data-node-id="212:512"] img{position:absolute;inset:0;top:0;left:0;width:100%;height:100%;object-fit:contain;transform:none}
+[data-node-id="212:512"]>div>p{margin:0;width:100%}
+@media(max-width:760px){[data-node-id="212:512"]{grid-template-columns:repeat(2,minmax(0,1fr))}}
+[data-node-id="212:512"]>div>.image-slot{height:auto;aspect-ratio:1351/2800;flex-shrink:0}
