@@ -125,3 +125,9 @@ body[data-page="home"] #viewport{width:100%;margin-inline:0}
 [data-node-id="212:512"]>div>p{margin:0;width:100%}
 @media(max-width:760px){[data-node-id="212:512"]{grid-template-columns:repeat(2,minmax(0,1fr))}}
 [data-node-id="212:512"]>div>.image-slot{height:auto;aspect-ratio:1351/2800;flex-shrink:0}
+
+/* Match the reduction of artwork across Mac and Windows desktop. */
+@media(min-width:761px){
+ .image-slot:has(>img[src$=".webp"]){scale:.92;transform-origin:center center}
+ html.windows-desktop #artboard .image-slot img{scale:1}
+}
