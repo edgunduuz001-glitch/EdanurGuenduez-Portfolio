@@ -1,11 +1,13 @@
 'use strict';
 document.documentElement.classList.toggle('windows-desktop',/Windows/i.test(navigator.userAgentData?.platform||navigator.platform||navigator.userAgent));
 const reduced=matchMedia('(prefers-reduced-motion: reduce)');
-const sourceMap={shoco:'assets/media/shoco.mp4',afterimage:'assets/media/afterimage.mp4',steal:'assets/media/steal.mp4',multiwars:'assets/media/multiwars.mp4'};
+const sourceMap={shoco:'assets/media/shoco.mp4',afterimage:'assets/media/afterimage-light.mp4',steal:'assets/media/steal.mp4',multiwars:'assets/media/multiwars.mp4'};
 document.querySelectorAll('.hero-video').forEach(video=>{
- video.src=video.dataset.videoKey==='afterimage'&&matchMedia('(max-width:760px)').matches?'assets/media/afterimage-mobile.mp4':sourceMap[video.dataset.videoKey];video.poster='assets/media/'+video.dataset.videoKey+'.jpg';video.muted=true;video.autoplay=!reduced.matches;
+ video.src=video.dataset.videoKey==='afterimage'&&matchMedia('(max-width:760px)').matches?'assets/media/afterimage-mobile-light.mp4':sourceMap[video.dataset.videoKey];video.poster='assets/media/'+video.dataset.videoKey+'.jpg';video.muted=true;video.autoplay=!reduced.matches;
  const toggle=document.createElement('button');toggle.type='button';toggle.className='video-toggle';const icon=document.createElement('span');icon.className='video-control-icon';icon.setAttribute('aria-hidden','true');toggle.append(icon);video.parentElement.append(toggle);
- let manualPause=false,inView=true;const sync=()=>{toggle.dataset.state=video.paused?'paused':'playing';const label=video.paused?'Play animation':'Stop animation';toggle.setAttribute('aria-label',label);toggle.title=label;};
+ let manualPause=false,inView=true;
+ if(video.dataset.videoKey==='afterimage'){const compact=matchMedia('(max-width:760px)');compact.addEventListener('change',()=>{video.pause();video.src=compact.matches?'assets/media/afterimage-mobile-light.mp4':sourceMap.afterimage;video.load();video.addEventListener('loadeddata',()=>{if(!manualPause&&inView&&!document.hidden&&!reduced.matches)video.play().catch(()=>{})},{once:true})})}
+const sync=()=>{toggle.dataset.state=video.paused?'paused':'playing';const label=video.paused?'Play animation':'Stop animation';toggle.setAttribute('aria-label',label);toggle.title=label;};
  toggle.addEventListener('click',async()=>{if(video.paused){manualPause=false;await video.play().catch(()=>{});}else{manualPause=true;video.pause();}sync()});video.addEventListener('play',sync);video.addEventListener('pause',sync);video.addEventListener('error',()=>{video.hidden=true;toggle.hidden=true});sync();if(!reduced.matches)video.play().catch(sync);const playback=()=>{if(document.hidden||!inView||reduced.matches||manualPause)video.pause();else video.play().catch(()=>{})};document.addEventListener('visibilitychange',playback);reduced.addEventListener('change',playback);new IntersectionObserver(entries=>{inView=entries[0].isIntersecting;playback()},{threshold:.05}).observe(video.parentElement);
 });
 if('IntersectionObserver'in window){document.documentElement.classList.add('site-motion');const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}}),{threshold:.1});document.querySelectorAll('.case-section>div,.case-section>p').forEach(n=>{if(!n.closest('.site-nav,.case-hero,.context-grid,.site-footer')){n.classList.add('fade-in');observer.observe(n)}});}
@@ -68,6 +70,7 @@ if(document.body.dataset.page==='multiwars'){
   track.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();go(index+(e.key==='ArrowRight'?1:-1))}});
   document.addEventListener('visibilitychange',schedule);reduced.addEventListener('change',()=>{paused=reduced.matches;sync();schedule()});
   new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;schedule()},{threshold:0}).observe(track);
+  let trackWidth=track.clientWidth;new ResizeObserver(()=>{const width=track.clientWidth;if(width&&width!==trackWidth){trackWidth=width;go(Math.min(index,count-1),true)}}).observe(track);
  }
 }
 // Steal & Seal: cycle the three HUD priorities directly over the game image.

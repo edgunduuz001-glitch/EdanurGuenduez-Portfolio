@@ -17,3 +17,5 @@ Five pages, 136 local asset references and JavaScript syntax checked. Browser ve
 Old media and source snapshots are archived outside the website in ../work/website-last/previous-2026-10-08. Optimization reports, desktop-image provenance and conversion sources are in ../work/website-last.
 
 Publishing is not configured by this update.
+
+October 9 update: replaced the downloadable CV with the supplied EdanurGündüz_CV.pdf. Home card scaling now follows container ResizeObserver updates, including desktop/mobile breakpoint transitions; the design carousel recalculates its position on width changes. Afterimage adapts its source when crossing the mobile breakpoint and uses fast-decode H.264 Baseline at 24 fps: 1280×720 desktop (326,597 bytes), 540×720 mobile (256,628 bytes). Native Windows and device-specific playback performance still require on-device verification.
