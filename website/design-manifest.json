@@ -1,0 +1,32 @@
+{
+  "home": {
+    "file": "index.html",
+    "root": "212:85",
+    "assets": 47,
+    "nodes": 326
+  },
+  "shoco": {
+    "file": "shoco-scroll-story.html",
+    "root": "212:313",
+    "assets": 10,
+    "nodes": 127
+  },
+  "afterimage": {
+    "file": "afterimage-scroll-story.html",
+    "root": "212:416",
+    "assets": 10,
+    "nodes": 156
+  },
+  "steal": {
+    "file": "steal-and-seal-scroll-story.html",
+    "root": "212:545",
+    "assets": 9,
+    "nodes": 140
+  },
+  "multiwars": {
+    "file": "multiwars-scroll-story.html",
+    "root": "212:663",
+    "assets": 12,
+    "nodes": 143
+  }
+}
