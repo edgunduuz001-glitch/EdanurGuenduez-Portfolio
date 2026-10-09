@@ -13,7 +13,7 @@ const sync=()=>{toggle.dataset.state=video.paused?'paused':'playing';const label
 if('IntersectionObserver'in window){document.documentElement.classList.add('site-motion');const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}}),{threshold:.1});document.querySelectorAll('.case-section>div,.case-section>p').forEach(n=>{if(!n.closest('.site-nav,.case-hero,.context-grid,.site-footer')){n.classList.add('fade-in');observer.observe(n)}});}
 
 // Preserve the back-to-top link and add the next project at the lower right.
-const projects=[['shoco','ShoCo','shoco-scroll-story.html'],['afterimage','Afterimage','afterimage-scroll-story.html'],['steal','Steal & Seal','steal-and-seal-scroll-story.html'],['multiwars','Card UI Design','multiwars-scroll-story.html']];
+const projects=[['shoco','ShoCo','shoco-scroll-story.html'],['afterimage','Afterimage','afterimage-scroll-story.html'],['steal','Steal & Seal','steal-and-seal-scroll-story.html'],['multiwars','Card UI Design','multiwars-scroll-story.html'],['foody','Foody','foody-scroll-story.html']];
 const current=projects.findIndex(p=>p[0]===document.body.dataset.page);const footer=document.querySelector('.site-footer');
 if(current>=0&&footer){const next=projects[(current+1)%projects.length];const nav=document.createElement('nav');nav.className='footer-nav';nav.setAttribute('aria-label','Project navigation');const link=document.createElement('a');link.href=next[2];link.className='next-project';const small=document.createElement('small');small.textContent='Next project';link.append(small,document.createTextNode(next[1]+' ↗'));const back=footer.querySelector('a[href="#top"]');nav.append(link);if(back)nav.append(back);footer.append(nav);}
 // Enlarged selected TCG cards: native dialog supports Escape and focus return.
@@ -27,7 +27,7 @@ if(document.body.dataset.page==='steal'){
  if(before&&after){const compare=document.createElement('div');compare.className='artwork-compare';const final=after.cloneNode();const early=before.cloneNode();early.className='compare-before';final.className='compare-after';const range=document.createElement('input');range.type='range';range.min='0';range.max='100';range.value='50';range.className='compare-control';range.setAttribute('aria-label','Compare early wireframe and developed game UI');range.setAttribute('aria-valuetext','50 percent wireframe');const line=document.createElement('span');line.className='compare-line';line.setAttribute('aria-hidden','true');const label=(cls,text)=>{const l=document.createElement('span');l.className='compare-label '+cls;l.textContent=text;return l};compare.append(final,early,label('before','Early wireframe'),label('after','Developed UI'),line,range);host.replaceChildren(compare);host.style.height='auto';range.addEventListener('input',()=>{compare.style.setProperty('--split',range.value+'%');range.setAttribute('aria-valuetext',range.value+' percent wireframe')});}
 }
 if(document.body.dataset.page==='foody'){
- const host=document.querySelector('[data-node-id="87:244"]');const originals=host?[...host.querySelectorAll('img')]:[];
+ const host=document.querySelector('[data-node-id="239:136"]');const originals=host?[...host.querySelectorAll('img')]:[];
  if(originals.length===2){const sources=originals.map(i=>i.src),demo=document.createElement('div');demo.className='theme-demo';const buttons=document.createElement('div');buttons.className='theme-buttons';buttons.setAttribute('role','group');buttons.setAttribute('aria-label','Foody appearance');const img=document.createElement('img');img.className='theme-preview';img.src=sources[0];img.alt='Foody home in light mode';const caption=document.createElement('p');caption.className='theme-caption';caption.textContent='Light · A warm starting point';['Light','Dark'].forEach((name,i)=>{const button=document.createElement('button');button.type='button';button.textContent=name;button.setAttribute('aria-pressed',String(i===0));button.addEventListener('click',()=>{img.src=sources[i];img.alt='Foody home in '+name.toLowerCase()+' mode';caption.textContent=i?'Dark · The same familiar structure':'Light · A warm starting point';buttons.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b===button)))});buttons.append(button)});demo.append(buttons,img,caption);host.replaceChildren(demo);}
 }
 if(document.body.dataset.page==='afterimage'){
@@ -42,36 +42,44 @@ if(document.body.dataset.page==='afterimage'){
   select(0);
  }
 }
-// Keep manual scrolling available while the iterations advance automatically.
-if(document.body.dataset.page==='multiwars'){
- const track=document.querySelector('[data-node-id="212:749"]');
- if(track){
-  const slides=[...track.children],count=slides.length;let index=0,timer,settle,visible=false,drag=false,paused=reduced.matches,automatic=false,manualUntil=0;
-  slides.slice(0,2).forEach(slide=>{const clone=slide.cloneNode(true);clone.setAttribute('aria-hidden','true');[clone,...clone.querySelectorAll('[data-node-id]')].forEach(n=>n.removeAttribute('data-node-id'));track.append(clone)});
-  const all=[...track.children],offset=i=>all[i].offsetLeft-all[0].offsetLeft;
-  track.tabIndex=0;track.setAttribute('role','region');track.setAttribute('aria-label','Card design evolution. Swipe, drag or use arrow keys to explore.');
-  const controls=document.createElement('div');controls.className='iteration-controls';controls.setAttribute('role','group');controls.setAttribute('aria-label','Card design slideshow');
-  const make=(label,text,fn)=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-label',label);b.title=label;b.textContent=text;b.addEventListener('click',fn);controls.append(b);return b};
-  const stop=()=>clearTimeout(timer);
-  const schedule=()=>{stop();if(!visible||drag||paused||document.hidden)return;timer=setTimeout(()=>go(index+1,true),Math.max(index===count-1?4500:1800,manualUntil-Date.now()))};
-  const go=(next,auto=false)=>{stop();if(!auto)manualUntil=Date.now()+5000;index=next<0?count-1:next;automatic=true;track.scrollTo({left:offset(Math.min(index,count)),behavior:reduced.matches?'instant':'smooth'});clearTimeout(settle);settle=setTimeout(finish,800)};
-  const finish=()=>{clearTimeout(settle);index=all.reduce((best,s,i)=>Math.abs(track.scrollLeft-offset(i))<Math.abs(track.scrollLeft-offset(best))?i:best,0);if(index>=count){index%=count;track.scrollTo({left:offset(index),behavior:'instant'})}automatic=false;schedule()};
-  make('Previous design','←',()=>go(index-1));
-  const toggle=make('Stop slideshow','■',()=>{paused=!paused;sync();schedule()});
-  const sync=()=>{toggle.textContent=paused?'▶':'■';toggle.setAttribute('aria-label',paused?'Play slideshow':'Stop slideshow');toggle.title=toggle.getAttribute('aria-label');toggle.setAttribute('aria-pressed',String(paused))};sync();
-  make('Next design','→',()=>go(index+1));track.after(controls);
-  track.addEventListener('scroll',()=>{stop();if(!automatic)manualUntil=Date.now()+5000;clearTimeout(settle);settle=setTimeout(finish,180)});
-  track.addEventListener('wheel',()=>{automatic=false;manualUntil=Date.now()+5000;stop()},{passive:true});
-  let startX,startLeft,moved=false;
-  track.addEventListener('pointerdown',e=>{automatic=false;manualUntil=Date.now()+5000;stop();if(e.pointerType==='touch')return;drag=true;moved=false;startX=e.clientX;startLeft=track.scrollLeft;track.setPointerCapture(e.pointerId)});
-  track.addEventListener('pointermove',e=>{if(!drag)return;const delta=e.clientX-startX;if(Math.abs(delta)>4){moved=true;track.classList.add('dragging');track.scrollLeft=startLeft-delta}});
-  const end=()=>{if(!drag)return;drag=false;track.classList.remove('dragging');finish()};track.addEventListener('pointerup',end);track.addEventListener('pointercancel',end);
-  track.addEventListener('dragstart',e=>e.preventDefault());track.addEventListener('click',e=>{if(moved){e.preventDefault();moved=false}});
-  track.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();go(index+(e.key==='ArrowRight'?1:-1))}});
-  document.addEventListener('visibilitychange',schedule);reduced.addEventListener('change',()=>{paused=reduced.matches;sync();schedule()});
-  new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;schedule()},{threshold:0}).observe(track);
-  let trackWidth=track.clientWidth;new ResizeObserver(()=>{const width=track.clientWidth;if(width&&width!==trackWidth){trackWidth=width;go(Math.min(index,count-1),true)}}).observe(track);
- }
+// Shared autoplay tracks stay swipeable and respect manual input and reduced motion.
+function makeStoryCarousel(track,{label,delay=1500,finalDelay=delay}={}){
+ if(!track)return;
+ track.classList.add('story-carousel');
+ const slides=[...track.children],count=slides.length;if(count<2)return;
+ slides.forEach(slide=>{const clone=slide.cloneNode(true);clone.setAttribute('aria-hidden','true');
+ [clone,...clone.querySelectorAll('[data-node-id]')].forEach(n=>n.removeAttribute('data-node-id'));
+ track.append(clone)});const all=[...track.children];
+ let index=0,timer,settle,visible=false,drag=false,paused=reduced.matches,automatic=false,manualUntil=0,startX,startLeft,moved=false;
+ const offset=i=>all[i].offsetLeft-all[0].offsetLeft;
+ track.tabIndex=0;track.setAttribute('role','region');track.setAttribute('aria-label',label);
+ const controls=document.createElement('div');controls.className='iteration-controls';controls.setAttribute('role','group');controls.setAttribute('aria-label',label+' controls');
+ const stop=()=>clearTimeout(timer);
+ const schedule=()=>{stop();if(!visible||drag||paused||document.hidden)return;timer=setTimeout(()=>go(index+1,true),Math.max(index===count-1?finalDelay:delay,manualUntil-Date.now()))};
+ const settleAtNearest=()=>{clearTimeout(settle);index=all.reduce((best,s,i)=>Math.abs(track.scrollLeft-offset(i))<Math.abs(track.scrollLeft-offset(best))?i:best,0);if(index>=count){index=0;track.scrollTo({left:0,behavior:'instant'})}automatic=false;schedule()};
+ const go=(next,auto=false)=>{stop();if(!auto)manualUntil=Date.now()+5000;index=next<0?count-1:Math.min(next,count);automatic=true;track.scrollTo({left:offset(index),behavior:reduced.matches?'instant':'smooth'});clearTimeout(settle);settle=setTimeout(settleAtNearest,650)};
+ const make=(label,text,fn)=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-label',label);b.title=label;b.textContent=text;b.addEventListener('click',fn);controls.append(b);return b};
+ make('Previous screen','←',()=>go(index-1));
+ const toggle=make('Stop slideshow','■',()=>{paused=!paused;sync();schedule()});
+ const sync=()=>{toggle.textContent=paused?'▶':'■';toggle.setAttribute('aria-label',paused?'Play slideshow':'Stop slideshow');toggle.title=toggle.getAttribute('aria-label');toggle.setAttribute('aria-pressed',String(paused))};sync();
+ make('Next screen','→',()=>go(index+1));
+ if(track.parentElement.classList.contains('scroll-scene')){const wrapper=document.createElement('div');wrapper.className='scene-media carousel-media';track.before(wrapper);track.classList.remove('scene-media');wrapper.append(track,controls)}else track.after(controls);
+ track.addEventListener('scroll',()=>{stop();if(!automatic)manualUntil=Date.now()+5000;clearTimeout(settle);settle=setTimeout(settleAtNearest,160)},{passive:true});
+ track.addEventListener('wheel',()=>{automatic=false;manualUntil=Date.now()+5000;stop()},{passive:true});
+ track.addEventListener('pointerdown',e=>{automatic=false;manualUntil=Date.now()+5000;stop();if(e.pointerType==='touch')return;drag=true;moved=false;startX=e.clientX;startLeft=track.scrollLeft;track.setPointerCapture(e.pointerId)});
+ track.addEventListener('pointermove',e=>{if(!drag)return;const delta=e.clientX-startX;if(Math.abs(delta)>4){moved=true;track.classList.add('dragging');track.scrollLeft=startLeft-delta}});
+ const end=()=>{if(!drag)return;drag=false;track.classList.remove('dragging');settleAtNearest()};track.addEventListener('pointerup',end);track.addEventListener('pointercancel',end);
+ track.addEventListener('dragstart',e=>e.preventDefault());track.addEventListener('click',e=>{if(moved){e.preventDefault();moved=false}});
+ track.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();go(index+(e.key==='ArrowRight'?1:-1))}});
+ document.addEventListener('visibilitychange',schedule);reduced.addEventListener('change',()=>{paused=reduced.matches;sync();schedule()});
+ new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;schedule()},{threshold:.1}).observe(track);
+ let width=track.clientWidth;new ResizeObserver(()=>{if(track.clientWidth&&track.clientWidth!==width){width=track.clientWidth;go(Math.min(index,count-1),true)}}).observe(track);
+}
+if(document.body.dataset.page==='multiwars')makeStoryCarousel(document.querySelector('[data-node-id="212:749"]'),{label:'Card design evolution. Swipe, drag or use arrow keys.',delay:1200,finalDelay:3600});
+if(document.body.dataset.page==='foody'){
+ makeStoryCarousel(document.querySelector('[data-node-id="239:130"]'),{label:'Food buddy invitation and conversation. Swipe, drag or use arrow keys.',delay:2400});
+ const host=document.querySelector('[data-node-id="239:55"]');
+ if(host){const stage=document.createElement('div');stage.className='foody-hero-stage';[...host.children].forEach((n,i)=>{n.classList.add('hero-phone');n.style.animationDelay=(-i*2.3)+'s';stage.append(n)});host.append(stage);const fit=()=>{if(!host.clientWidth)return;const scale=Math.min(1,(host.clientWidth-12)/775);stage.style.setProperty('--phone-scale',scale);host.style.height=(660*scale+20)+'px'};new ResizeObserver(fit).observe(host);fit();}
 }
 // Steal & Seal: cycle the three HUD priorities directly over the game image.
 if(document.body.dataset.page==='steal'){

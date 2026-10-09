@@ -2,8 +2,8 @@
   "home": {
     "file": "index.html",
     "root": "212:85",
-    "assets": 47,
-    "nodes": 326
+    "assets": 48,
+    "nodes": 337
   },
   "shoco": {
     "file": "shoco-scroll-story.html",
@@ -28,5 +28,11 @@
     "root": "212:663",
     "assets": 12,
     "nodes": 143
+  },
+  "foody": {
+    "file": "foody-scroll-story.html",
+    "root": "239:43",
+    "assets": 14,
+    "nodes": 152
   }
 }

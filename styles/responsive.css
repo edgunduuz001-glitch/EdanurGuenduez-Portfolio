@@ -128,6 +128,59 @@ body[data-page="home"] #viewport{width:100%;margin-inline:0}
 
 /* Match the reduction of artwork across Mac and Windows desktop. */
 @media(min-width:761px){
- .image-slot:has(>img[src$=".webp"]){scale:.92;transform-origin:center center}
+ .image-slot:has(>img[src*=".webp"]){scale:.92;transform-origin:center center}
  html.windows-desktop #artboard .image-slot img{scale:1}
 }
+
+/* WEBSITE SON: all five projects now share the Selected Work section. */
+#artboard{height:5538px}
+body[data-page="home"] :is([data-node-id="243:293"],[data-node-id="212:194"],[data-node-id="212:122"],[data-node-id="243:253"],[data-node-id="243:266"]){border:3px solid #201b2a!important}
+body[data-page="home"] :is([data-node-id="243:292"],[data-node-id="212:114"],[data-node-id="212:115"],[data-node-id="243:252"],[data-node-id="243:265"]){background:#332a40;transition:background-color .25s}
+body[data-page="home"] .project-link:is(:hover,:focus-visible)>div:first-child>div:first-child{background:#8964cf}
+body[data-page="home"] :is([data-node-id="212:122"],[data-node-id="212:186"]){translate:0 0!important}
+body[data-page="home"] :is([data-node-id="243:290"],[data-node-id="243:250"],[data-node-id="243:263"]){transition:translate .3s}
+body[data-page="home"] :is([data-node-id="243:290"],[data-node-id="243:250"],[data-node-id="243:263"]):is(:hover,:focus-visible){translate:0 -10px}
+
+/* Shared manual/autoplay story tracks. */
+.story-carousel{display:flex!important;justify-content:flex-start!important;gap:32px!important;position:relative;overflow-x:auto!important;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;touch-action:pan-x pan-y;cursor:grab;min-width:0}
+.story-carousel::-webkit-scrollbar{display:none}
+.story-carousel>div{scroll-snap-align:start;scroll-snap-stop:always;min-width:0}
+.story-carousel.dragging{scroll-snap-type:none;cursor:grabbing;user-select:none}
+.story-carousel:focus-visible{outline:2px solid #8964cf;outline-offset:5px}
+body[data-page="multiwars"] [data-node-id="212:749"]>div{flex:0 0 min(320px,70vw);width:min(320px,70vw)!important}
+body[data-page="foody"] .scene-media .image-slot{width:min(345px,100%);height:auto;aspect-ratio:var(--asset-ratio)}
+body[data-page="foody"] [data-node-id="239:130"]{width:100%;max-width:360px;height:auto;display:flex;align-items:flex-start;justify-content:flex-start;gap:28px;margin-inline:auto}
+body[data-page="foody"] [data-node-id="239:130"]>.image-slot{flex:0 0 calc(100% - 28px);width:calc(100% - 28px)!important;height:auto;aspect-ratio:1351/2800;scale:1}
+body[data-page="foody"] [data-node-id="239:130"] img{width:100%;height:100%;object-fit:contain}
+body[data-page="foody"] .scene-media:has(.story-carousel){display:block}
+body[data-page="foody"] .carousel-media .iteration-controls{max-width:360px;margin-inline:auto}
+body[data-page="foody"] .iteration-controls{color:#f3eef7;margin-top:20px;justify-content:flex-end}
+body[data-page="foody"] .iteration-controls button{border-color:#f3eef755}
+body[data-page="foody"] .case-hero{overflow:hidden}
+body[data-page="foody"] .case-hero [data-name="Selected designs / hero"]{width:48%;min-width:0;flex-shrink:1}
+body[data-page="foody"] .case-hero [data-name="Hero story"]{width:48%;min-width:0;flex-shrink:1}
+body[data-page="foody"] .case-hero [data-name="Selected designs / hero"] .image-slot{scale:1}
+.foody-hero-stage{display:flex;align-items:center;justify-content:center;width:775px;max-width:none!important;height:660px;flex:none;scale:var(--phone-scale,1);transform-origin:center center}
+.foody-hero-stage>.image-slot{flex:none!important;width:275px!important;height:560px!important}
+[data-node-id="239:81"]{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;width:100%}
+[data-node-id="239:81"]>div{width:100%;min-width:0}
+[data-node-id="239:81"] .image-slot{height:auto;width:100%;aspect-ratio:1351/2800}
+[data-node-id="239:95"]{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px;width:100%}
+[data-node-id="239:95"]>div{width:100%;min-width:0}
+[data-node-id="239:95"] .image-slot{width:100%;height:600px}
+[data-node-id="239:146"]{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:60px;width:100%}
+[data-node-id="239:146"]>div{width:100%;min-width:0}
+[data-node-id="239:136"]{width:100%;min-width:0}
+@media(max-width:760px){
+ body[data-page="foody"] .case-hero [data-name="Selected designs / hero"]{width:100%;height:370px}
+ body[data-page="foody"] .case-hero [data-name="Hero story"]{width:100%;max-width:100%}
+ body[data-page="foody"] .case-hero [data-name="Selected designs / hero"]>.foody-hero-stage{scale:var(--phone-scale,1);margin-inline:0}
+ [data-node-id="239:81"]{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+ [data-node-id="239:95"] .image-slot{height:auto;aspect-ratio:1351/2800}
+ [data-node-id="239:146"]{grid-template-columns:1fr;gap:28px}
+ .story-carousel{gap:24px!important}
+ body[data-page="foody"] [data-node-id="239:130"]>.image-slot{flex-basis:85%;width:85%!important}
+ .theme-preview{height:500px;max-width:100%}
+}
+@media(max-width:760px){.mobile-hero h1 span:last-child{background:transparent;color:#ebf777;padding-inline:0}}
+@media(min-width:1200px){body[data-page="foody"] .case-hero [data-name="Display headline"] p{white-space:nowrap;max-width:none}}

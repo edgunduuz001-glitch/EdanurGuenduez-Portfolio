@@ -1,23 +1,28 @@
-# Edanur Gündüz Portfolio
+# Edanur Gündüz — Portfolio
 
-Updated October 8, 2026 from EDA-WEBSITE → WEBSİTE SON → website last (212:84).
+Static HTML, CSS and JavaScript, updated from EDA-WEBSITE / WEBSİTE SON on October 9, 2026.
 
-Static HTML/CSS/JavaScript. Preview: http://127.0.0.1:8860/.
+Preview: http://127.0.0.1:8860/
 
-Pages: home, ShoCo, Afterimage, Steal & Seal, Multiwars. Foody remains excluded.
+Pages: home, ShoCo, Afterimage, Steal & Seal, TCG Card UI Design and Foody.
 
-All 296 Figma text nodes are verified against the latest design, including typography and footer copy. Latest local Steal & Seal monitor mockups and the English CV are included. Images are high-quality WebP; vector icons remain SVG.
+## Latest update
 
-Afterimage uses adaptive H.264 fast-start videos: 1920×1080 desktop (547 KB) and 720×960 mobile (257 KB), CRF 19. Desktop source similarity measured SSIM 0.99577. Videos pause outside the viewport. Original media remains unchanged.
+- Compared all 356 Figma text nodes and synchronized exact copy and typography.
+- Restored Foody, with all five projects in Selected Work and no separate Beyond section.
+- Refreshed 103 current Figma assets; 23 are added or changed from the previous website.
+- Foody hero phones float with staggered timing. Connect screens advance automatically and can be swiped, dragged or advanced with keyboard/buttons. Light/dark appearance remains interactive.
+- Card design iterations advance every 1.2 seconds, hold the final layout for 3.6 seconds, and allow manual navigation. User input pauses automatic advancement briefly. Motion preferences and off-screen pausing are respected.
+- Preserved Afterimage Draw/Capture/Import previews, card enlargement, Steal & Seal comparison and HUD highlights, video play/stop controls, next-project links and the supplied English CV.
+- Afterimage uses the corrected six-second, 30 fps videos, with desktop/mobile files around 712 KB and 620 KB. The older videos are retained but are not loaded.
+- Added cache versions for updated styles, scripts and images.
 
-Interactions retained: home hover backplates and strokes; Afterimage creation action interactions; card enlargement; automatic/manual design evolution carousel with longer final-design pause; wireframe comparison; animated HUD highlights; video stop/play icons; next-project navigation. Reduced-motion preferences and mobile layouts are supported.
+## Validation
 
-Five pages, 136 local asset references and JavaScript syntax checked. Browser verification covered widths 390, 768, 1024 and 1440 pixels without unintended text overflow or broken loaded images. Capture/Import preview switching works with mouse, keyboard and touch. Card enlargement, carousel controls, comparison and HUD controls were verified. Native Windows OS testing was unavailable; layouts were tested in Chromium.
+Six pages, 160 local references and JavaScript syntax verified. All 356 exported text nodes match the Figma text audit exactly. Browser checks at 1440, 1100, 760 and 390 pixels found no horizontal page overflow. Existing interactions and the new carousel/theme controls were checked in Chromium. Native Windows hardware testing was unavailable; Windows-specific compact styling is preserved.
 
-Old media and source snapshots are archived outside the website in ../work/website-last/previous-2026-10-08. Optimization reports, desktop-image provenance and conversion sources are in ../work/website-last.
+Current source and reports: ../work/website-last and ../work/website-update-20261009. The pre-update website is saved in ../work/website-update-20261009/backup.
 
-Publishing is not configured by this update.
+## GitHub Pages
 
-October 9 update: replaced the downloadable CV with the supplied EdanurGündüz_CV.pdf. Home card scaling now follows container ResizeObserver updates, including desktop/mobile breakpoint transitions; the design carousel recalculates its position on width changes. Afterimage adapts its source when crossing the mobile breakpoint and uses fast-decode H.264 Baseline at 24 fps: 1280×720 desktop (326,597 bytes), 540×720 mobile (256,628 bytes). Native Windows and device-specific playback performance still require on-device verification.
-
-Afterimage playback correction: source capture contained repeated frames and an incomplete six-second loop. The existing bubble renderer is now exported deterministically, producing 180 distinct frames at 30 fps and a complete six-second cycle, rather than transcoding the interrupted realtime recording. The desktop and mobile smooth MP4s are H.264 Main, one reference frame, no B-frames, fast-start, about 712 KB and 620 KB. Decoded-frame comparison found zero repeated frames; loop boundary movement is comparable to an ordinary frame step. Older lightweight assets are retained as backups but are no longer loaded by the page.
+Copy the contents of this directory into the repository root, leaving the repository's .git directory in place. Commit and push the updated files. GitHub Pages should publish main / root. This update does not push or deploy automatically.
