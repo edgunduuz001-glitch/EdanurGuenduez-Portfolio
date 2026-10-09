@@ -23,7 +23,7 @@ mobileProjects('Selected Work','mobile-work',[['243:293',textOf('243:296'),'Mobi
 const about=element('section','mobile-section mobile-about');about.id='mobile-about';about.append(element('h2','','About Me'));const photo=element('img');photo.src='assets/home/imgFrame15.webp';photo.alt='Edanur Gündüz';about.append(photo);const aboutText=node('212:214');if(aboutText)aboutText.textContent.split(/\n\s*\n/).filter(t=>t.trim()).forEach(t=>about.append(element('p','',t.trim())));about.append(element('p','skills',textOf('212:215')));mobile.append(about);
 const exp=element('section','mobile-section mobile-experience');exp.append(element('h2','','Experience & Education'));['212:225','212:233','212:243','212:251'].forEach(id=>{const source=node(id)?.parentElement;if(source){const row=element('div','row');source.querySelectorAll('p').forEach(p=>row.append(element('small','',p.textContent)));exp.append(row)}});mobile.append(exp);
 
-const contact=element('section','mobile-contact');const contactLine=element('p');const contactSource=node('212:292');if(contactSource)contactLine.innerHTML=contactSource.innerHTML;contact.append(element('h2','',textOf('212:291')),contactLine,anchor('Say hello ↗','mailto:edgunduuz001@gmail.com','mobile-cta'));const social=element('div','mobile-social');social.append(anchor('LinkedIn ↗','https://www.linkedin.com/in/eda-g%C3%BCnd%C3%BCz-01/'),anchor('Behance ↗','https://www.behance.net/edagndz1'));contact.append(social);mobile.append(contact);const foot=element('footer','mobile-footer');const signature=element('div');signature.append(element('p','',textOf('220:878')),element('p','signature',textOf('220:879')));foot.append(signature,anchor(textOf('220:880'),'#mobile-top'));mobile.append(foot);document.body.append(mobile);
+const contact=element('section','mobile-contact');contact.id='mobile-contact';const contactLine=element('p');const contactSource=node('212:292');if(contactSource)contactLine.innerHTML=contactSource.innerHTML;contact.append(element('h2','',textOf('212:291')),contactLine,anchor('Say hello ↗','mailto:edgunduuz001@gmail.com','mobile-cta'));const social=element('div','mobile-social');social.append(anchor('LinkedIn ↗','https://www.linkedin.com/in/eda-g%C3%BCnd%C3%BCz-01/'),anchor('Behance ↗','https://www.behance.net/edagndz1'));contact.append(social);mobile.append(contact);const foot=element('footer','mobile-footer');const signature=element('div');signature.append(element('p','',textOf('220:878')),element('p','signature',textOf('220:879')));foot.append(signature,anchor(textOf('220:880'),'#mobile-top'));mobile.append(foot);document.body.append(mobile);
 
 // Fit the highlight bars to the rendered font, with a small overhang.
 function sizeHighlights(){const first=node('212:105'),second=node('212:106');const purple=node('212:87'),inner=purple?.firstElementChild?.firstElementChild;const lime=node('212:88');if(!first||!purple)return;const measure=p=>{const range=document.createRange();range.selectNodeContents(p);if(p.firstChild?.nodeType===Node.TEXT_NODE)range.setEnd(p.firstChild,p.firstChild.textContent.trimEnd().length);const scale=viewport.clientWidth/1728;return range.getBoundingClientRect().width/(scale||1)};const w1=measure(first)+24,w2=measure(second)+24;purple.style.width=(w1+4)+'px';if(inner)inner.style.width=w1+'px';if(lime)lime.style.width=w2+'px';}
@@ -36,3 +36,13 @@ let layoutFrame;function updateLayout(){cancelAnimationFrame(layoutFrame);layout
 addEventListener('resize',updateLayout);matchMedia('(max-width:760px)').addEventListener('change',updateLayout);
 const layoutObserver=new ResizeObserver(updateLayout);layoutObserver.observe(viewport);document.querySelectorAll('.mobile-card-art').forEach(n=>layoutObserver.observe(n));
 document.fonts.ready.then(updateLayout);
+
+// Project menus link to the visible home section on either layout.
+function scrollToHomeSection(){
+ const name=location.hash.slice(1);
+ if(!['work','about','contact'].includes(name))return;
+ const target=document.getElementById((matchMedia('(max-width:760px)').matches?'mobile-':'')+name);
+ if(target)window.scrollTo({top:target.getBoundingClientRect().top+scrollY,behavior:'instant'});
+}
+addEventListener('hashchange',scrollToHomeSection);
+addEventListener('load',()=>document.fonts.ready.then(()=>requestAnimationFrame(scrollToHomeSection)));
