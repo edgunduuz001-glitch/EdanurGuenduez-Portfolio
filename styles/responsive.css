@@ -269,3 +269,7 @@ body[data-page="foody"] .case-frame [data-node-id="239:130"]>.image-slot{flex:0 
 }
 
 .case-frame .case-section:not(.case-hero):not(.site-nav):not(.site-footer):has(.image-slot>img[src*=".webp"]){min-height:0!important}
+
+/* Home TCG artwork uses the supplied complete card composition. */
+.home-card-ui-art{position:absolute;inset:0;width:100%;height:100%;padding:14px;transform:none}
+.home-card-ui-art img{position:static;display:block;width:100%;height:100%;object-fit:contain;transform:none}
