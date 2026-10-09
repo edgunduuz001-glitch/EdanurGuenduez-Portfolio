@@ -88,7 +88,7 @@ if(document.body.dataset.page==='steal'){
   stage.classList.add('hud-demo');
   const targets=[{id:'212:623',box:[23,19,54,55],label:'01 / WORKSPACE'},{id:'212:626',box:[23,77,54,14],label:'02 / WRAPPING TOOLS'},{id:'212:629',box:[0,3,100,14],label:'03 / TIME & PROGRESS'}];
   const focus=document.createElement('div');focus.className='hud-focus';focus.setAttribute('aria-hidden','true');const label=document.createElement('span');label.className='hud-focus-label';focus.append(label);
-  const timerFocus=document.createElement('div');timerFocus.className='hud-timer-focus';timerFocus.setAttribute('aria-hidden','true');stage.append(focus,timerFocus);
+  const timerFocus=document.createElement('div');timerFocus.className='hud-timer-focus';timerFocus.setAttribute('aria-hidden','true');const screen=document.createElement('div');screen.className='hud-screen';screen.setAttribute('aria-hidden','true');screen.append(focus,timerFocus);stage.append(screen);
   let active=0,interval,visible=false,paused=reduced.matches,holdUntil=0;const buttons=[];
   const stop=()=>clearTimeout(interval);
   const schedule=()=>{stop();if(!visible||paused||document.hidden)return;interval=setTimeout(()=>select((active+1)%targets.length),Math.max(3200,holdUntil-Date.now()))};

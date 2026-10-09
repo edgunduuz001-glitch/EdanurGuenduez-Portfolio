@@ -223,3 +223,49 @@ body[data-page="foody"] .case-hero [data-name="Selected designs / hero"] .image-
 }
 
 @media(max-width:760px){.case-frame .site-nav .project-menu{gap:clamp(12px,3vw,20px);flex-wrap:wrap;row-gap:10px}}
+
+/* Steal & Seal desktop monitor artwork keeps its complete screen and stand. */
+body[data-page="steal"] .image-slot.pc-mockup{width:100%;height:auto;aspect-ratio:2400/1781}
+body[data-page="steal"] .artwork-compare{aspect-ratio:2400/1781}
+body[data-page="steal"] .pc-mockup>img{object-fit:contain}
+body[data-page="steal"] .hud-screen{position:absolute;left:1.2%;top:1.75%;width:97.6%;height:74.05%;overflow:hidden;z-index:2;isolation:isolate}
+body[data-page="steal"] .pc-mockup .hud-toggle{right:3%;bottom:28%}
+
+/* One media scale across case studies, independent of each exported frame. */
+.case-frame{--story-phone-width:252px;--story-monitor-width:clamp(260px,calc((100vw - 292px)/2),520px);--story-card-width:280px}
+.case-frame .case-section:not(.case-hero) .image-slot:has(>img[src*=".webp"]){scale:1;transform-origin:center}
+.case-frame .case-section:not(.case-hero) .image-slot:has(>img[src*=".webp"]:is([src*="/shoco/"],[src*="/afterimage/"],[src*="/foody/"])){
+ width:min(var(--story-phone-width),100%)!important;height:auto!important;aspect-ratio:1351/2800!important;margin-inline:auto;
+}
+.case-frame .case-section:not(.case-hero) .image-slot:has(>img[src*=".webp"]:is([src*="/shoco/"],[src*="/afterimage/"],[src*="/foody/"]))>img{
+ width:100%;height:100%;inset:0;object-fit:contain;transform:none;
+}
+body[data-page="steal"] .case-frame .pc-mockup,
+body[data-page="steal"] .case-frame .artwork-compare{
+ width:min(var(--story-monitor-width),100%)!important;height:auto!important;aspect-ratio:2400/1781!important;margin-inline:auto;scale:1;
+}
+body[data-page="multiwars"] .case-frame .case-section:not(.case-hero) .image-slot:has(>img[src*=".webp"]){
+ width:min(var(--story-card-width),100%)!important;height:auto!important;aspect-ratio:2010/2800!important;margin-inline:auto;
+}
+body[data-page="multiwars"] .case-frame .case-section:not(.case-hero) .image-slot>img{object-fit:contain;transform:none}
+.case-frame :is(.theme-preview,.ai-gallery img){width:min(var(--story-phone-width),100%);height:auto;max-height:none;object-fit:contain}
+/* Match the width of layered phones and carousel viewports to their artwork. */
+.case-frame [data-node-id="212:518"]{width:min(var(--story-phone-width),100%);height:auto;aspect-ratio:1351/2800;margin-inline:auto}
+body[data-page="foody"] .case-frame [data-node-id="239:130"]{width:min(var(--story-phone-width),100%);max-width:var(--story-phone-width)}
+body[data-page="foody"] .case-frame [data-node-id="239:130"]>.image-slot{flex:0 0 100%;width:100%!important}
+/* Gallery rows follow the new artwork heights instead of fixed export heights. */
+.case-frame :is([data-node-id="212:380"],[data-node-id="212:392"],[data-node-id="212:450"]){height:auto}
+.case-frame [data-node-id="212:380"]{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;align-items:center}
+.case-frame :is([data-node-id="212:381"],[data-node-id="212:383"]){width:100%;height:auto;aspect-ratio:1351/2800;max-width:var(--story-phone-width);margin-inline:auto}
+.case-frame :is([data-node-id="212:381"],[data-node-id="212:383"])>div{width:100%;--rot:0deg}
+.case-frame [data-node-id="212:392"]{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;align-items:start}
+.case-frame [data-node-id="212:392"]>div{width:100%;height:auto;padding-top:0;gap:24px}
+.case-frame [data-node-id="212:512"]>div{height:auto;gap:24px}
+@media(max-width:1200px) and (min-width:761px){.case-frame{--story-phone-width:220px;--story-card-width:240px}}
+@media(max-width:760px){
+ .case-frame{--story-phone-width:220px;--story-monitor-width:520px;--story-card-width:240px}
+ .case-frame [data-node-id="212:392"],.case-frame [data-node-id="212:380"]{grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 20px}
+ .case-frame [data-node-id="212:380"]>div:last-child{grid-column:1/-1}
+}
+
+.case-frame .case-section:not(.case-hero):not(.site-nav):not(.site-footer):has(.image-slot>img[src*=".webp"]){min-height:0!important}
