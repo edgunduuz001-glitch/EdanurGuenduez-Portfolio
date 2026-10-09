@@ -270,6 +270,7 @@ body[data-page="foody"] .case-frame [data-node-id="239:130"]>.image-slot{flex:0 
 
 .case-frame .case-section:not(.case-hero):not(.site-nav):not(.site-footer):has(.image-slot>img[src*=".webp"]){min-height:0!important}
 
-/* Home TCG artwork uses the supplied complete card composition. */
-.home-card-ui-art{position:absolute;inset:0;width:100%;height:100%;padding:14px;transform:none}
-.home-card-ui-art img{position:static;display:block;width:100%;height:100%;object-fit:contain;transform:none}
+/* Home TCG artwork matches WEBSITE SON's 721 x 477 crop. */
+body[data-page="home"] .home-card-ui-frame{border-width:1px!important}
+.home-card-ui-art{position:absolute;left:calc(50% + 101.5px);top:17px;width:721px;height:477px;padding:0;transform:translateX(-50%);max-width:none!important}
+.home-card-ui-art img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;transform:none}
